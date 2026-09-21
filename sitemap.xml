@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+       <loc>https://vicnupe.github.io/</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>https://vicnupe.github.io/exercises/soccer.html</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vicnupe.github.io/exercises/laptops.html</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vicnupe.github.io/exercises/page-1.html</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vicnupe.github.io/exercises/Purple-Rain-corrected.html</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vicnupe.github.io/exercises/page-3.html</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vicnupe.github.io/exercises/candles.html</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vicnupe.github.io/index.html</loc>
+       <lastmod>2026-09-21T14:58:34+00:00</lastmod>
+       <priority>0.6400</priority>
+  </url>
+</urlset>
