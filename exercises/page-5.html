@@ -12,49 +12,71 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
+
+        a {
+        @apply 
+        underline underline-offset-4
+        text-green-800
+        hover:text-green-600
+        focus:text-green-600
+        transition-colors duration-300;
+        }   
+
         header {
         @apply flex flex-col justify-around items-center w-full mx-auto
             bg-green-300
             px-12 lg:px-60 py-8 lg:py-14;
   
-    }
-    header h1 {
-        @apply text-6xl md:text-7xl tracking-tight text-center
-            mb-8 lg:mb-12;
-    }
+        }
+        header h1 {
+            @apply text-6xl md:text-7xl tracking-tight text-center
+                mb-8 lg:mb-12
+                font-['Oswald'];
+        }
 
-    h1, h2 { @apply text-green-700 font-bold }
+        h1, h2 { @apply text-green-700 font-bold }
 
-    header p {
-        @apply text-green-900 text-2xl md:text-3xl/12 text-center font-normal;
-    }
+        header p {
+            @apply text-green-900 text-2xl md:text-3xl/12 text-center font-normal font-['Lato'];
+        }
 
-    section {
-        @apply bg-green-200
-            px-12 lg:px-68 
-            pt-4 pb-12 lg:pt-8 lg:pb-18;
-    }
+        section {
+            @apply bg-green-200
+                px-12 lg:px-68 
+                pt-4 pb-12 lg:pt-8 lg:pb-18;
+        }
 
-    section h2 {
-        @apply text-4xl lg:text-5xl tracking-tight mt-10 lg:mt-14 lg:mb-2;
-    }
+        section h2 {
+            @apply text-4xl lg:text-5xl tracking-tight mt-10 lg:mt-14 lg:mb-2 font-['Oswald'];
+        }
 
-    section img {
-        @apply mb-5 rounded-[25px];
-    }
+        section img {
+            @apply mb-5 rounded-[25px];
+        }
 
-    section .highlight-text {
-        @apply bg-green-700 px-6 pt-1 py-2 text-white w-fit;
-    }
+        section .highlight-text {
+            @apply bg-green-700 px-6 pt-1 py-2 text-white w-fit;
+        }
 
-    section p {
-        @apply text-lg md:text-xl/8 mb-5;
-    }
+        section p {
+            @apply text-lg md:text-xl/8 mb-5 font-['Lato'];
+        }
 
-    header *:last-child { @apply mb-0! }
-    section *:last-child { @apply mb-0! }
+        section > * { @apply w-full max-w-[48rem] mx-auto; }
+
+        header *:last-child { @apply mb-0! }
+        section *:last-child { @apply mb-0! }
     </style>
-<!--Victor Nunes Pedreira - 80755-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Oswald:wght@200..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Oswald:wght@200..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+            <!--Victor Nunes Pedreira - 80755-->
 </head>
 
 <body>
@@ -68,7 +90,7 @@
         <p><a href="#aquatic-centre">4: National Aquatic Centre, Dublin</a></p>
         <p><a href="#kells-tcd">5: Book of Kells Exhibition, Trinity College, Dublin</a></p>
 
-        <p>Visiting Ireland is like taking a great big breath of fresh air. Ireland is a country brimming with fun and
+        <p class="mt-10">Visiting Ireland is like taking a great big breath of fresh air. Ireland is a country brimming with fun and
             fascinating ways for visitors to spend their days and nights. You'll discover just the right mountain to
             climb, painting to pore over, sports team to cheer on, or whatever else takes your fancy.</p>
 
@@ -144,7 +166,7 @@
                 Long Room, a magnificent and beautiful library, that houses 200,000 of Trinity College's oldest books.
             </p>
             <p class="highlight-text">Annual Number of Visitors: <b>983,410</b></p>
-
+            <p>Return to <a href="../index.html">Home</a></p>
         </section>
 
     </main>
