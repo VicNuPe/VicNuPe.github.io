@@ -16,12 +16,20 @@
 
     <style type="text/tailwindcss">
 
-    header {
-    @apply pt-8 px-[9%] pb-[42px] md:py-[3%] md:px-[20%];
-    }
+        header { 
+            @apply min-h-[60vh] md:min-h-[80vh]
+            bg-linear-to-b from-purple-600 to-purple-900 
+            flex flex-col justify-center
+            px-8 lg:px-60 py-12
+            text-center
+            
+        }
 
     header h1 {
-    @apply tracking-tighter text-5xl md:text-8xl mb-8;
+    @apply text-7xl md:text-8xl
+        text-white font-bold
+        tracking-tight
+        mb-6;
     }
 
     header h2 {
@@ -47,6 +55,37 @@
     section {   
     @apply pt-8 px-[9%] pb-[42px] md:py-[3%] md:px-[20%];
     }
+
+    .slide-in-top {
+        animation: slide-in-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;  
+    }
+    
+    .slide-in-left {
+        animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;  
+    }
+
+    @keyframes slide-in-top {
+    0% {
+        transform: translateY(-1000px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+    @keyframes slide-in-left {
+    0% {
+        transform: translateX(-1000px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
     </style>
     <!--Victor Nunes Pedreira - 80755-->
 </head>
@@ -63,8 +102,8 @@
 <body>
     <!--This is a comment!-->
     <header>
-        <h1>Hi, I'm Victor Nunes</h1>
-        <h2>Web / UI Designer</h2>
+        <h1 class="slide-in-top">Hi, I'm Victor Nunes</h1>
+        <h2 class="slide-in-left">Web / UI Designer</h2>
         <img class="mt-10" src="exercises/assets/img/pexels-alicia-christin-gerald-1447380217-37880001.jpg" alt="">
     </header>
 
@@ -80,9 +119,10 @@
             <p><a href="exercises/page-3.html">Web Page with Sections</a></p>
             <p><a href="exercises/page-4.html">Vincent Van Gogh</a></p>
             <p><a href="exercises/page-5.html">Ireland's Top Five Visitor Attractions</a></p>
-            <p><a href="exercises/hero-image.html">Hero block with background image<a> 
-            <p><a href="exercises/hero-video.html">Hero block with background video<a>  
-            </section>
+            <p><a href="exercises/hero-image.html">Hero block with background image<a>
+            <p><a href="exercises/hero-video.html">Hero block with background video<a>
+            <p><a href="exercises/hero-text.html">Hero block with animated text</a></p> 
+        </section>
     </main>
 
 </body>
