@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+  <title>Hero Block Generator</title>
+
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Shared hero styles: used by preview and exported page -->
+  <style type="text/tailwindcss" id="hero-styles">
+    .hero {
+      @apply flex items-center w-full px-6 py-16 md:px-12 md:py-24;
+    }
+
+    .hero-content {
+      @apply w-full max-w-5xl mx-auto;
+    }
+
+    .hero-light {
+      @apply bg-slate-50 text-slate-900;
+    }
+
+    .hero-dark {
+      @apply bg-slate-900 text-slate-50;
+    }
+
+    .hero-centre {
+      @apply text-center;
+    }
+
+    .hero-min-height {
+      @apply min-h-[480px] md:min-h-[85vh];
+    }
+
+    .hero h1 {
+      @apply text-4xl md:text-6xl font-bold leading-tight;
+      overflow-wrap: anywhere;
+    }
+
+    .hero h2 {
+      @apply mt-6 text-lg md:text-2xl leading-relaxed;
+      overflow-wrap: anywhere;
+    }
+
+    .heading-sans {
+      @apply font-sans;
+    }
+
+    .heading-serif {
+      @apply font-serif;
+    }
+
+    .hero-light h1 {
+      @apply text-slate-900;
+    }
+
+    .hero-light h2 {
+      @apply text-slate-700;
+    }
+
+    .hero-dark h1 {
+      @apply text-slate-50;
+    }
+
+    .hero-dark h2 {
+      @apply text-slate-300;
+    }
+  </style>
+
+  <!-- Heading letter-spacing rules: used by preview and exported page -->
+  <style id="letter-spacing-styles">
+    .hero h1 {
+      letter-spacing: -0.05em;
+    }
+
+    .hero h2 {
+      letter-spacing: -0.025em;
+    }
+  </style>
+
+  <!-- Editor interface styles: excluded from exported HTML -->
+  <style type="text/tailwindcss">
+    .app-shell {
+      @apply min-h-screen bg-white text-slate-900;
+    }
+
+    .app-header {
+      @apply max-w-7xl mx-auto px-5 pt-8 pb-5;
+    }
+
+    .app-title {
+      @apply text-2xl font-bold tracking-tight;
+    }
+
+    .app-description {
+      @apply mt-2 text-sm text-slate-600;
+    }
+
+    .control-panel {
+      @apply flex flex-wrap items-center gap-x-6 gap-y-4 mt-6 p-4 bg-slate-50 border border-slate-200 rounded-xl;
+    }
+
+    .effect-groups {
+      @apply grid grid-cols-1 md:grid-cols-2 gap-4 mt-4;
+    }
+
+    .effect-group {
+      @apply flex flex-wrap items-center gap-x-6 gap-y-3 p-4 bg-slate-50 border border-slate-200 rounded-xl transition-opacity;
+    }
+
+    .effect-group-disabled {
+      @apply opacity-50;
+    }
+
+    .effect-group-title {
+      @apply w-full text-xs font-bold uppercase tracking-wider text-slate-500;
+    }
+
+    .control-label {
+      @apply inline-flex items-center gap-2 text-sm font-medium text-slate-700 cursor-pointer select-none;
+    }
+
+    .control-checkbox {
+      @apply w-4 h-4 accent-blue-600 cursor-pointer disabled:cursor-not-allowed;
+    }
+
+    .control-checkbox:focus-visible {
+      outline: 3px solid #60a5fa;
+      outline-offset: 3px;
+    }
+
+    .slider-control {
+      @apply inline-flex flex-wrap items-center gap-3;
+    }
+
+    .control-slider {
+      @apply w-32 sm:w-40 accent-blue-600 cursor-pointer disabled:cursor-not-allowed;
+    }
+
+    .control-slider:focus-visible {
+      outline: 3px solid #60a5fa;
+      outline-offset: 3px;
+    }
+
+    .slider-value {
+      @apply text-xs font-mono font-semibold text-slate-700 min-w-[4.5rem];
+    }
+
+    .preview-section {
+      @apply max-w-7xl mx-auto px-5 pb-28;
+    }
+
+    .preview-heading {
+      @apply text-sm font-semibold text-slate-500 mb-3;
+    }
+
+    .preview-frame {
+      @apply overflow-hidden rounded-xl border border-slate-200 shadow-sm;
+    }
+
+    .editing-heading {
+      outline: none;
+      cursor: text;
+      border-radius: 4px;
+    }
+
+    .editing-heading:focus {
+      outline: 3px solid #3b82f6;
+      outline-offset: 6px;
+    }
+
+    .edit-instruction {
+      @apply mt-4 text-sm text-slate-500;
+    }
+
+    .copy-button {
+      @apply fixed bottom-5 right-5 z-50 px-5 py-3 rounded-xl bg-blue-600 text-white text-sm font-semibold shadow-lg cursor-pointer;
+      @apply hover:bg-blue-700 active:bg-blue-800;
+    }
+
+    .copy-button:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 4px;
+    }
+
+    .copy-status {
+      @apply mt-4 text-sm text-slate-700;
+    }
+
+    .fallback-section {
+      @apply mt-5;
+    }
+
+    .fallback-label {
+      @apply block text-sm font-semibold text-slate-700 mb-2;
+    }
+
+    .fallback-textarea {
+      @apply w-full min-h-48 p-3 border border-slate-300 rounded-lg text-xs font-mono text-slate-800 bg-slate-50;
+    }
+  </style>
+</head>
+
+<body class="app-shell">
+
+  <!-- Application interface -->
+  <main>
+
+    <section class="app-header" aria-labelledby="app-title">
+
+      <h1 id="app-title" class="app-title">
+        Design your next adventure
+      </h1>
+
+      <p class="app-description">
+        Create and customise a simple website hero section.
+      </p>
+
+      <!-- Four appearance and layout controls -->
+      <section class="control-panel" aria-label="Hero settings">
+
+        <label class="control-label" for="dark-appearance">
+          <input
+            class="control-checkbox"
+            type="checkbox"
+            id="dark-appearance"
+          >
+          Dark appearance
+        </label>
+
+        <label class="control-label" for="centre-text">
+          <input
+            class="control-checkbox"
+            type="checkbox"
+            id="centre-text"
+          >
+          Centre text
+        </label>
+
+        <label class="control-label" for="minimum-height">
+          <input
+            class="control-checkbox"
+            type="checkbox"
+            id="minimum-height"
+            checked
+          >
+          Minimum height
+        </label>
+
+        <label class="control-label" for="show-subheading">
+          <input
+            class="control-checkbox"
+            type="checkbox"
+            id="show-subheading"
+            checked
+          >
+          Show subheading
+        </label>
+
+      </section>
+
+      <!-- Separate H1 and H2 text-effect groups -->
+      <div class="effect-groups">
+
+        <section
+          id="h1-effects-group"
+          class="effect-group"
+          aria-labelledby="h1-effects-heading"
+        >
+          <h2 id="h1-effects-heading" class="effect-group-title">
+            H1 text effects
+          </h2>
+
+          <label class="control-label" for="h1-serif">
+            <input
+              class="control-checkbox"
+              type="checkbox"
+              id="h1-serif"
+            >
+            Serif font
+          </label>
+
+          <div class="slider-control">
+            <label class="control-label" for="h1-letter-spacing">
+              Letter spacing
+            </label>
+            <input
+              class="control-slider"
+              type="range"
+              id="h1-letter-spacing"
+              min="-0.05"
+              max="0.10"
+              step="0.005"
+              value="-0.05"
+            >
+            <span id="h1-spacing-value" class="slider-value">-0.05em</span>
+          </div>
+        </section>
+
+        <section
+          id="h2-effects-group"
+          class="effect-group"
+          aria-labelledby="h2-effects-heading"
+        >
+          <h2 id="h2-effects-heading" class="effect-group-title">
+            H2 text effects
+          </h2>
+
+          <label class="control-label" for="h2-serif">
+            <input
+              class="control-checkbox"
+              type="checkbox"
+              id="h2-serif"
+            >
+            Serif font
+          </label>
+
+          <div class="slider-control">
+            <label class="control-label" for="h2-letter-spacing">
+              Letter spacing
+            </label>
+            <input
+              class="control-slider"
+              type="range"
+              id="h2-letter-spacing"
+              min="-0.05"
+              max="0.10"
+              step="0.005"
+              value="-0.025"
+            >
+            <span id="h2-spacing-value" class="slider-value">-0.025em</span>
+          </div>
+        </section>
+
+      </div>
+
+    </section>
+
+    <!-- Hero preview -->
+    <section class="preview-section" aria-label="Hero preview">
+
+      <h2 class="preview-heading">
+        Create a hero block with your own text and styles
+      </h2>
+
+      <div class="preview-frame">
+
+        <header
+          id="hero"
+          class="hero hero-light hero-min-height"
+          aria-label="Website hero section"
+        >
+
+          <div class="hero-content">
+
+            <h1
+              id="hero-title"
+              class="editing-heading heading-sans"
+              contenteditable="true"
+              role="textbox"
+              aria-label="Main heading. Click to edit."
+              aria-multiline="false"
+              spellcheck="false"
+            >Lorem ipsum dolor sit amet</h1>
+
+            <h2
+              id="hero-subtitle"
+              class="editing-heading heading-sans"
+              contenteditable="true"
+              role="textbox"
+              aria-label="Subheading. Click to edit."
+              aria-multiline="false"
+              spellcheck="false"
+            >Consectetur adipiscing elit. Integer vitae libero ac risus egestas placerat.</h2>
+
+          </div>
+
+        </header>
+
+      </div>
+
+      <p class="edit-instruction">
+        Click a heading to edit the text.
+      </p>
+
+      <!-- Manual copying fallback -->
+      <div
+        id="fallback-section"
+        class="fallback-section"
+        hidden
+      >
+        <label
+          class="fallback-label"
+          for="generated-html"
+        >
+          Your generated HTML — select and copy manually:
+        </label>
+
+        <textarea
+          id="generated-html"
+          class="fallback-textarea"
+          readonly
+          aria-describedby="copy-status"
+        ></textarea>
+      </div>
+
+      <p
+        id="copy-status"
+        class="copy-status"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+    </section>
+
+  </main>
+
+  <!-- Fixed copy button -->
+  <button
+    type="button"
+    id="copy-button"
+    class="copy-button"
+  >
+    Copy HTML
+  </button>
+
+
+  <script>
+    // ----------------------------------------
+    // 1. Get the HTML elements
+    // ----------------------------------------
+
+    const hero = document.getElementById("hero");
+
+    const heroTitle = document.getElementById("hero-title");
+    const heroSubtitle = document.getElementById("hero-subtitle");
+    const letterSpacingStyles = document.getElementById("letter-spacing-styles");
+
+    const darkCheckbox = document.getElementById("dark-appearance");
+    const centreCheckbox = document.getElementById("centre-text");
+    const heightCheckbox = document.getElementById("minimum-height");
+    const subtitleCheckbox = document.getElementById("show-subheading");
+
+    const h1SerifCheckbox = document.getElementById("h1-serif");
+    const h1SpacingSlider = document.getElementById("h1-letter-spacing");
+    const h1SpacingValue = document.getElementById("h1-spacing-value");
+
+    const h2EffectsGroup = document.getElementById("h2-effects-group");
+    const h2SerifCheckbox = document.getElementById("h2-serif");
+    const h2SpacingSlider = document.getElementById("h2-letter-spacing");
+    const h2SpacingValue = document.getElementById("h2-spacing-value");
+
+    const copyButton = document.getElementById("copy-button");
+
+    const copyStatus = document.getElementById("copy-status");
+    const fallbackSection = document.getElementById("fallback-section");
+    const generatedHtml = document.getElementById("generated-html");
+
+
+    // ----------------------------------------
+    // 2. Store the hero and text-effect settings
+    // ----------------------------------------
+
+    const settings = {
+      dark: darkCheckbox.checked,
+      centre: centreCheckbox.checked,
+      minimumHeight: heightCheckbox.checked,
+      showSubtitle: subtitleCheckbox.checked,
+      h1Serif: h1SerifCheckbox.checked,
+      h2Serif: h2SerifCheckbox.checked,
+      h1LetterSpacing: Number(h1SpacingSlider.value),
+      h2LetterSpacing: Number(h2SpacingSlider.value)
+    };
+
+
+    // ----------------------------------------
+    // 3. Build and update letter-spacing CSS rules
+    // ----------------------------------------
+
+    function getLetterSpacingCss() {
+      return `    .hero h1 {
+      letter-spacing: ${settings.h1LetterSpacing}em;
+    }
+
+    .hero h2 {
+      letter-spacing: ${settings.h2LetterSpacing}em;
+    }`;
+    }
+
+    function updateLetterSpacingStyles() {
+      letterSpacingStyles.textContent = `\n${getLetterSpacingCss()}\n  `;
+    }
+
+
+    // ----------------------------------------
+    // 4. Update the hero appearance
+    // ----------------------------------------
+
+    function updateHero() {
+
+      // Read the current checkbox and numeric slider values.
+      // Do not replace the heading elements.
+
+      settings.dark = darkCheckbox.checked;
+      settings.centre = centreCheckbox.checked;
+      settings.minimumHeight = heightCheckbox.checked;
+      settings.showSubtitle = subtitleCheckbox.checked;
+
+      settings.h1Serif = h1SerifCheckbox.checked;
+      settings.h2Serif = h2SerifCheckbox.checked;
+      settings.h1LetterSpacing = Number(h1SpacingSlider.value);
+      settings.h2LetterSpacing = Number(h2SpacingSlider.value);
+
+      // Update the hero container classes.
+
+      hero.classList.toggle("hero-dark", settings.dark);
+      hero.classList.toggle("hero-light", !settings.dark);
+
+      hero.classList.toggle("hero-centre", settings.centre);
+
+      hero.classList.toggle(
+        "hero-min-height",
+        settings.minimumHeight
+      );
+
+      // Update H1 and H2 font classes.
+
+      heroTitle.classList.toggle("heading-serif", settings.h1Serif);
+      heroTitle.classList.toggle("heading-sans", !settings.h1Serif);
+
+      heroSubtitle.classList.toggle("heading-serif", settings.h2Serif);
+      heroSubtitle.classList.toggle("heading-sans", !settings.h2Serif);
+
+      // Update the displayed slider values and dedicated <style> rules.
+
+      h1SpacingValue.textContent = `${settings.h1LetterSpacing}em`;
+      h2SpacingValue.textContent = `${settings.h2LetterSpacing}em`;
+
+      updateLetterSpacingStyles();
+
+      // Hide the subheading and disable H2 controls without losing their settings or text.
+
+      heroSubtitle.hidden = !settings.showSubtitle;
+      h2SerifCheckbox.disabled = !settings.showSubtitle;
+      h2SpacingSlider.disabled = !settings.showSubtitle;
+      h2EffectsGroup.classList.toggle(
+        "effect-group-disabled",
+        !settings.showSubtitle
+      );
+
+      // Keep the manual-copy version up to date.
+
+      updateFallbackHtml();
+    }
+
+
+    // ----------------------------------------
+    // 5. Keep editing as plain text
+    // ----------------------------------------
+
+    function handlePlainTextPaste(event) {
+
+      event.preventDefault();
+
+      // Read clipboard content as plain text.
+
+      const plainText = event.clipboardData
+        ? event.clipboardData.getData("text/plain")
+        : "";
+
+      const selection = window.getSelection();
+
+      if (!selection || selection.rangeCount === 0) {
+        return;
+      }
+
+      const range = selection.getRangeAt(0);
+
+      // Only edit inside the current heading.
+
+      const heading = event.currentTarget;
+
+      if (!heading.contains(range.commonAncestorContainer) &&
+          range.commonAncestorContainer !== heading) {
+        return;
+      }
+
+      range.deleteContents();
+
+      // Insert a text node, never pasted HTML.
+
+      const textNode = document.createTextNode(plainText);
+
+      range.insertNode(textNode);
+
+      // Position the cursor after the pasted text.
+
+      range.setStartAfter(textNode);
+      range.collapse(true);
+
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      heading.dispatchEvent(new Event("input", {
+        bubbles: true
+      }));
+    }
+
+
+    function preventNewLines(event) {
+
+      // Keep each heading as a single editable text line.
+
+      if (event.key === "Enter") {
+        event.preventDefault();
+      }
+    }
+
+
+    function handleHeadingInput() {
+
+      // Refresh the fallback export whenever text changes.
+
+      updateFallbackHtml();
+    }
+
+
+    // ----------------------------------------
+    // 6. Escape text for safe HTML output
+    // ----------------------------------------
+
+    function escapeHtml(text) {
+
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+
+    // ----------------------------------------
+    // 7. Generate the standalone hero page
+    // ----------------------------------------
+
+    function generateHtml() {
+
+      // Read the latest heading text.
+
+      const titleText = escapeHtml(heroTitle.textContent);
+      const subtitleText = escapeHtml(heroSubtitle.textContent);
+
+      // Build the hero and heading classes using current settings.
+
+      const heroClasses = [
+        "hero",
+        settings.dark ? "hero-dark" : "hero-light",
+        settings.centre ? "hero-centre" : "",
+        settings.minimumHeight ? "hero-min-height" : ""
+      ].filter(Boolean).join(" ");
+
+      const titleFontClass = settings.h1Serif
+        ? "heading-serif"
+        : "heading-sans";
+
+      const subtitleFontClass = settings.h2Serif
+        ? "heading-serif"
+        : "heading-sans";
+
+      // Include the subheading only when enabled.
+
+      const subtitleHtml = settings.showSubtitle
+        ? `
+      <h2 class="${subtitleFontClass}">${subtitleText}</h2>`
+        : "";
+
+      // Shared styles and heading letter-spacing rules are copied from the head.
+
+      const heroStyles = document.getElementById("hero-styles").textContent;
+      const letterSpacingCss = getLetterSpacingCss();
+
+      // Return a complete standalone HTML document.
+
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Hero Section</title>
+  <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
+
+  <style type="text/tailwindcss">
+${heroStyles}
+  </style>
+
+  <style>
+${letterSpacingCss}
+  </style>
+</head>
+<body>
+
+  <header class="${heroClasses}">
+    <div class="hero-content">
+      <h1 class="${titleFontClass}">${titleText}</h1>${subtitleHtml}
+    </div>
+  </header>
+
+</body>
+</html>`;
+    }
+
+
+    // ----------------------------------------
+    // 8. Update the manual-copy textarea
+    // ----------------------------------------
+
+    function updateFallbackHtml() {
+
+      generatedHtml.value = generateHtml();
+    }
+
+
+    // ----------------------------------------
+    // 9. Copy HTML using the Clipboard API
+    // ----------------------------------------
+
+    async function copyHtml() {
+
+      // Generate HTML using the latest settings and text.
+
+      const html = generateHtml();
+
+      // Clear any previous status.
+
+      copyStatus.textContent = "";
+
+      try {
+
+        // Use the browser clipboard API.
+
+        if (!navigator.clipboard ||
+            typeof navigator.clipboard.writeText !== "function") {
+
+          throw new Error("Clipboard API unavailable");
+        }
+
+        await navigator.clipboard.writeText(html);
+
+        // Only show success after copying succeeds.
+
+        copyStatus.textContent =
+          "HTML copied—paste it into VS Code.";
+
+        // Hide the fallback if copying worked.
+
+        fallbackSection.hidden = true;
+
+      } catch (error) {
+
+        // If copying fails, provide manual copying instead.
+
+        generatedHtml.value = html;
+
+        fallbackSection.hidden = false;
+
+        copyStatus.textContent =
+          "Automatic copying is unavailable. Select the HTML below and copy it manually.";
+
+      }
+    }
+
+
+    // ----------------------------------------
+    // 10. Connect the controls to JavaScript
+    // ----------------------------------------
+
+    darkCheckbox.addEventListener("change", updateHero);
+
+    centreCheckbox.addEventListener("change", updateHero);
+
+    heightCheckbox.addEventListener("change", updateHero);
+
+    subtitleCheckbox.addEventListener("change", updateHero);
+
+    h1SerifCheckbox.addEventListener("change", updateHero);
+
+    h2SerifCheckbox.addEventListener("change", updateHero);
+
+    h1SpacingSlider.addEventListener("input", updateHero);
+
+    h2SpacingSlider.addEventListener("input", updateHero);
+
+
+    // ----------------------------------------
+    // 11. Connect heading editing events
+    // ----------------------------------------
+
+    heroTitle.addEventListener("paste", handlePlainTextPaste);
+
+    heroSubtitle.addEventListener("paste", handlePlainTextPaste);
+
+    heroTitle.addEventListener("keydown", preventNewLines);
+
+    heroSubtitle.addEventListener("keydown", preventNewLines);
+
+    heroTitle.addEventListener("input", handleHeadingInput);
+
+    heroSubtitle.addEventListener("input", handleHeadingInput);
+
+
+    // ----------------------------------------
+    // 12. Connect the copy button
+    // ----------------------------------------
+
+    copyButton.addEventListener("click", copyHtml);
+
+
+    // ----------------------------------------
+    // 13. Initialise the preview
+    // ----------------------------------------
+
+    updateHero();
+
+  </script>
+
+</body>
+</html>
