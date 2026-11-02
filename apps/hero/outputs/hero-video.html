@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Hero Section</title>
+  <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <link rel="preload" as="image" href="assets/videos/hero-poster.jpg">
+
+  <style type="text/tailwindcss">
+
+    .hero {
+      @apply relative flex items-center w-full px-6 py-16 md:px-12 md:py-24 overflow-hidden;
+    }
+
+    .hero-poster {
+      @apply absolute inset-0 w-full h-full z-0 bg-cover bg-center;
+    }
+
+    .hero-video {
+      @apply absolute inset-0 w-full h-full object-cover object-center z-[1] opacity-0 transition-opacity duration-500 pointer-events-none;
+    }
+
+    .hero-video.is-playing {
+      @apply opacity-100;
+    }
+
+    .hero-overlay {
+      @apply absolute inset-0 w-full h-full z-10 pointer-events-none;
+    }
+
+    .hero-content {
+      @apply relative z-20 w-full max-w-5xl mx-auto;
+    }
+
+    .hero-centre {
+      @apply text-center;
+    }
+
+    .hero-min-height {
+      @apply min-h-[480px] md:min-h-[85vh];
+    }
+
+    .hero h1 {
+      @apply text-4xl md:text-6xl font-bold leading-tight text-shadow-lg/30;
+      overflow-wrap: anywhere;
+    }
+
+    .hero h2 {
+      @apply mt-6 text-lg md:text-2xl leading-relaxed text-shadow-lg/30;
+      overflow-wrap: anywhere;
+    }
+
+    .heading-sans {
+      @apply font-sans;
+    }
+
+    .heading-serif {
+      @apply font-serif;
+    }
+  
+  </style>
+
+  <style>
+    .hero-poster {
+      background-image: url('assets/videos/hero-poster.jpg');
+    }
+    .hero-overlay {
+      opacity: 0.4;
+      background-image: linear-gradient(to right, var(--color-lime-200, #d9f99d), var(--color-blue-600, #2563eb));
+      background-color: transparent;
+    }
+    .hero h1 {
+      color: var(--color-slate-950, #020617);
+    }
+    .hero h2 {
+      color: var(--color-slate-800, #1e293b);
+    }
+
+    .hero h1 {
+      letter-spacing: -0.05em;
+    }
+
+    .hero h2 {
+      letter-spacing: -0.025em;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero hero-centre hero-min-height">
+    <div class="hero-poster" aria-hidden="true"></div>
+    <video class="hero-video" muted loop playsinline preload="metadata" poster="assets/videos/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+      <source src="assets/videos/hero-video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content">
+      <h1 class="heading-sans">Lorem ipsum dolor sit amet</h1>
+      <h2 class="heading-sans">Consectetur adipiscing elit. Integer vitae libero ac risus egestas placerat.</h2>
+    </div>
+  </header>
+
+  <script>
+    (function() {
+      const video = document.querySelector('.hero-video');
+      if (!video) return;
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function handlePlayback() {
+        if (motionQuery.matches) {
+          video.pause();
+          video.classList.remove('is-playing');
+        } else {
+          video.muted = true;
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(function() {
+              // Playback prevented by browser, leave poster visible
+            });
+          }
+        }
+      }
+
+      video.addEventListener('playing', function() {
+        video.classList.add('is-playing');
+      });
+
+      motionQuery.addEventListener('change', handlePlayback);
+      handlePlayback();
+    })();
+  </script>
+</body>
+</html>
