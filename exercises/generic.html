@@ -1,546 +1,759 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Most Influential Video Games of the Past Decade</title>
-    <meta name="description" content="The most influential video games of the past decade — titles that redefined genres, culture, and the art of play.">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Most Influential Video Games of the Past Decade</title>
+        <meta
+            name="description"
+            content="The most influential video games of the past decade — titles that redefined genres, culture, and the art of play."
+        />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <style>
-        /* ── Theme tokens ─────────────────────────────────── */
-        :root {
-            --bg:          #0a0a0a;
-            --bg-alt:      #111111;
-            --bg-alt2:     #0f0f0f;
-            --surface:     #1a1a1a;
-            --border:      rgba(255,255,255,0.08);
-            --accent:      #a78bfa;        /* violet-400 */
-            --accent2:     #34d399;        /* emerald-400 */
-            --accent3:     #f59e0b;        /* amber */
-            --text-h:      #ffffff;
-            --text-p:      #a1a1aa;        /* zinc-400 */
-            --text-muted:  #52525b;        /* zinc-600 */
-            --tag-bg:      rgba(167,139,250,0.10);
-            --tag-border:  rgba(167,139,250,0.30);
-            --tag-text:    #c4b5fd;
-            --overlay:     rgba(10,10,10,0.68);
-            --toggle-bg:   #1a1a1a;
-            --toggle-text: #a1a1aa;
-        }
-        [data-theme="light"] {
-            --bg:          #fafafa;
-            --bg-alt:      #f4f4f5;
-            --bg-alt2:     #f9f9f9;
-            --surface:     #ffffff;
-            --border:      rgba(0,0,0,0.08);
-            --accent:      #7c3aed;
-            --accent2:     #059669;
-            --accent3:     #d97706;
-            --text-h:      #09090b;
-            --text-p:      #52525b;
-            --text-muted:  #a1a1aa;
-            --tag-bg:      rgba(124,58,237,0.07);
-            --tag-border:  rgba(124,58,237,0.25);
-            --tag-text:    #6d28d9;
-            --overlay:     rgba(10,10,10,0.52);
-            --toggle-bg:   #f4f4f5;
-            --toggle-text: #3f3f46;
-        }
+        <style>
+            /* ── Theme tokens ─────────────────────────────────── */
+            :root {
+                --bg: #0a0a0a;
+                --bg-alt: #111111;
+                --bg-alt2: #0f0f0f;
+                --surface: #1a1a1a;
+                --border: rgba(255, 255, 255, 0.08);
+                --accent: #a78bfa; /* violet-400 */
+                --accent2: #34d399; /* emerald-400 */
+                --accent3: #f59e0b; /* amber */
+                --text-h: #ffffff;
+                --text-p: #a1a1aa; /* zinc-400 */
+                --text-muted: #52525b; /* zinc-600 */
+                --tag-bg: rgba(167, 139, 250, 0.1);
+                --tag-border: rgba(167, 139, 250, 0.3);
+                --tag-text: #c4b5fd;
+                --overlay: rgba(10, 10, 10, 0.68);
+                --toggle-bg: #1a1a1a;
+                --toggle-text: #a1a1aa;
+            }
+            [data-theme="light"] {
+                --bg: #fafafa;
+                --bg-alt: #f4f4f5;
+                --bg-alt2: #f9f9f9;
+                --surface: #ffffff;
+                --border: rgba(0, 0, 0, 0.08);
+                --accent: #7c3aed;
+                --accent2: #059669;
+                --accent3: #d97706;
+                --text-h: #09090b;
+                --text-p: #52525b;
+                --text-muted: #a1a1aa;
+                --tag-bg: rgba(124, 58, 237, 0.07);
+                --tag-border: rgba(124, 58, 237, 0.25);
+                --tag-text: #6d28d9;
+                --overlay: rgba(10, 10, 10, 0.52);
+                --toggle-bg: #f4f4f5;
+                --toggle-text: #3f3f46;
+            }
 
-        /* ── Base ─────────────────────────────────────────── */
-        *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+            /* ── Base ─────────────────────────────────────────── */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
 
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text-p);
-            font-family: 'DM Sans', system-ui, sans-serif;
-            font-size: 1.0625rem;
-            line-height: 1.7;
-            transition: background 0.3s, color 0.3s;
-            -webkit-font-smoothing: antialiased;
-        }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text-p);
+                font-family: "DM Sans", system-ui, sans-serif;
+                font-size: 1.0625rem;
+                line-height: 1.7;
+                transition:
+                    background 0.3s,
+                    color 0.3s;
+                -webkit-font-smoothing: antialiased;
+            }
 
-        h1, h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--text-h);
-            font-weight: 600;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin: 0;
-        }
+            h1,
+            h2 {
+                font-family: "Space Grotesk", sans-serif;
+                color: var(--text-h);
+                font-weight: 600;
+                line-height: 1.1;
+                letter-spacing: -0.03em;
+                margin: 0;
+            }
 
-        p { margin: 0; }
+            p {
+                margin: 0;
+            }
 
-        img { display: block; width: 100%; height: auto; }
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
 
-        /* ── Theme toggle ─────────────────────────────────── */
-        .toggle {
-            position: fixed;
-            top: 1.25rem;
-            right: 1.5rem;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.35rem 0.9rem;
-            background: var(--toggle-bg);
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            color: var(--toggle-text);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            cursor: pointer;
-            transition: border-color 0.2s, color 0.2s;
-        }
-        .toggle:hover { border-color: var(--accent); color: var(--accent); }
-        .toggle svg { width: 14px; height: 14px; }
+            /* ── Theme toggle ─────────────────────────────────── */
+            .toggle {
+                position: fixed;
+                top: 1.25rem;
+                right: 1.5rem;
+                z-index: 999;
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                padding: 0.35rem 0.9rem;
+                background: var(--toggle-bg);
+                border: 1px solid var(--border);
+                border-radius: 999px;
+                color: var(--toggle-text);
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.8rem;
+                font-weight: 500;
+                letter-spacing: 0.02em;
+                cursor: pointer;
+                transition:
+                    border-color 0.2s,
+                    color 0.2s;
+            }
+            .toggle:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+            }
+            .toggle svg {
+                width: 14px;
+                height: 14px;
+            }
 
-        /* ── Divider line ─────────────────────────────────── */
-        .rule {
-            width: 2.5rem;
-            height: 2px;
-            background: var(--accent);
-            border: none;
-            margin: 1.5rem 0;
-            border-radius: 1px;
-        }
+            /* ── Divider line ─────────────────────────────────── */
+            .rule {
+                width: 2.5rem;
+                height: 2px;
+                background: var(--accent);
+                border: none;
+                margin: 1.5rem 0;
+                border-radius: 1px;
+            }
 
-        /* ── Genre badge ──────────────────────────────────── */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.2rem 0.75rem;
-            background: var(--tag-bg);
-            border: 1px solid var(--tag-border);
-            color: var(--tag-text);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            border-radius: 999px;
-            margin-bottom: 1.25rem;
-        }
+            /* ── Genre badge ──────────────────────────────────── */
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                padding: 0.2rem 0.75rem;
+                background: var(--tag-bg);
+                border: 1px solid var(--tag-border);
+                color: var(--tag-text);
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                border-radius: 999px;
+                margin-bottom: 1.25rem;
+            }
 
-        /* ── HERO ─────────────────────────────────────────── */
-        .hero {
-            position: relative;
-            isolation: isolate;
-            display: flex;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 5rem 2rem;
-            min-height: 90vh;
-        }
+            /* ── HERO ─────────────────────────────────────────── */
+            .hero {
+                position: relative;
+                isolation: isolate;
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                padding: 5rem 2rem;
+                min-height: 90vh;
+            }
 
-        /* Background image — set via inline style on .hero-image */
-        .hero-image {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+            /* Background image — set via inline style on .hero-image */
+            .hero-image {
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
 
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            background: var(--overlay);
-        }
+            .hero-overlay {
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                pointer-events: none;
+                background: var(--overlay);
+            }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 60rem;
-            text-align: center;
-        }
+            .hero-content {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                max-width: 60rem;
+                text-align: center;
+            }
 
-        .hero h1 {
-            font-size: clamp(2.4rem, 6vw, 5rem);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            color: #fff;
-            margin-bottom: 1.25rem;
-        }
+            .hero h1 {
+                font-size: clamp(2.4rem, 6vw, 5rem);
+                font-weight: 700;
+                letter-spacing: -0.04em;
+                color: #fff;
+                margin-bottom: 1.25rem;
+            }
 
-        .hero h2 {
-            font-family: 'DM Sans', sans-serif;
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            font-weight: 300;
-            letter-spacing: 0;
-            color: rgba(255,255,255,0.65);
-            max-width: 44rem;
-            margin: 0 auto 2.5rem;
-            line-height: 1.65;
-        }
+            .hero h2 {
+                font-family: "DM Sans", sans-serif;
+                font-size: clamp(1rem, 2.5vw, 1.3rem);
+                font-weight: 300;
+                letter-spacing: 0;
+                color: rgba(255, 255, 255, 0.65);
+                max-width: 44rem;
+                margin: 0 auto 2.5rem;
+                line-height: 1.65;
+            }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+            .hero-buttons {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
 
-        .hero-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.75rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.03em;
-            text-decoration: none;
-            border-radius: 6px;
-            border: 1px solid transparent;
-            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
-        }
-        .hero-button:hover { transform: translateY(-1px); }
-        .hero-button-primary {
-            background: #fff;
-            color: #09090b;
-        }
-        .hero-button-primary:hover { background: #e4e4e7; }
-        .hero-button-secondary {
-            background: transparent;
-            border-color: rgba(255,255,255,0.3);
-            color: rgba(255,255,255,0.8);
-        }
-        .hero-button-secondary:hover {
-            border-color: rgba(255,255,255,0.65);
-            color: #fff;
-        }
+            .hero-button {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.75rem 1.75rem;
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.9rem;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                text-decoration: none;
+                border-radius: 6px;
+                border: 1px solid transparent;
+                transition:
+                    background 0.2s,
+                    border-color 0.2s,
+                    color 0.2s,
+                    transform 0.15s;
+            }
+            .hero-button:hover {
+                transform: translateY(-1px);
+            }
+            .hero-button-primary {
+                background: #fff;
+                color: #09090b;
+            }
+            .hero-button-primary:hover {
+                background: #e4e4e7;
+            }
+            .hero-button-secondary {
+                background: transparent;
+                border-color: rgba(255, 255, 255, 0.3);
+                color: rgba(255, 255, 255, 0.8);
+            }
+            .hero-button-secondary:hover {
+                border-color: rgba(255, 255, 255, 0.65);
+                color: #fff;
+            }
 
-        /* Hero text animation */
-        @keyframes from-below {
-            from { opacity: 0; transform: translateY(1.25rem); }
-            to   { opacity: 1; transform: none; }
-        }
-        .hero-content .badge       { animation: from-below 0.6s ease-out both; }
-        .hero-content h1           { animation: from-below 0.6s ease-out 0.08s both; }
-        .hero-content h2           { animation: from-below 0.6s ease-out 0.18s both; }
-        .hero-content .hero-buttons{ animation: from-below 0.6s ease-out 0.28s both; }
-        @media (prefers-reduced-motion: reduce) {
-            .hero-content * { animation: none !important; }
-        }
+            /* Hero text animation */
+            @keyframes from-below {
+                from {
+                    opacity: 0;
+                    transform: translateY(1.25rem);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+            .hero-content .badge {
+                animation: from-below 0.6s ease-out both;
+            }
+            .hero-content h1 {
+                animation: from-below 0.6s ease-out 0.08s both;
+            }
+            .hero-content h2 {
+                animation: from-below 0.6s ease-out 0.18s both;
+            }
+            .hero-content .hero-buttons {
+                animation: from-below 0.6s ease-out 0.28s both;
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .hero-content * {
+                    animation: none !important;
+                }
+            }
 
-        /* ── ONE-COLUMN section ───────────────────────────── */
-        .one-col {
-            width: 100%;
-            padding: 5rem 2rem;
-            background: var(--bg);
-            transition: background 0.3s;
-        }
-        .one-col-content {
-            max-width: 52rem;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .one-col p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            line-height: 1.8;
-            color: var(--text-p);
-        }
+            /* ── ONE-COLUMN section ───────────────────────────── */
+            .one-col {
+                width: 100%;
+                padding: 5rem 2rem;
+                background: var(--bg);
+                transition: background 0.3s;
+            }
+            .one-col-content {
+                max-width: 52rem;
+                margin: 0 auto;
+                text-align: center;
+            }
+            .one-col p {
+                font-size: 1.2rem;
+                font-weight: 300;
+                line-height: 1.8;
+                color: var(--text-p);
+            }
 
-        /* ── SPLIT section ────────────────────────────────── */
-        .split {
-            width: 100%;
-            padding: 5rem 2rem;
-            transition: background 0.3s;
-        }
-        .split-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            max-width: 72rem;
-            margin: 0 auto;
-            align-items: center;
-        }
-        @media (min-width: 1024px) {
-            .split-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
-            .split-reverse .split-media { order: -1; }
-        }
+            /* ── SPLIT section ────────────────────────────────── */
+            .split {
+                width: 100%;
+                padding: 5rem 2rem;
+                transition: background 0.3s;
+            }
+            .split-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                max-width: 72rem;
+                margin: 0 auto;
+                align-items: center;
+            }
+            @media (min-width: 1024px) {
+                .split-grid {
+                    grid-template-columns: 1fr 1fr;
+                    gap: 5rem;
+                }
+                .split-reverse .split-media {
+                    order: -1;
+                }
+            }
 
-        .split-text { width: 100%; }
-        .split-media { width: 100%; }
+            .split-text {
+                width: 100%;
+            }
+            .split-media {
+                width: 100%;
+            }
 
-        @media (max-width: 1023px) {
-            .split-media { order: -1; }
-        }
+            @media (max-width: 1023px) {
+                .split-media {
+                    order: -1;
+                }
+            }
 
-        .split h2 {
-            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-            margin-bottom: 1rem;
-        }
-        .split p {
-            color: var(--text-p);
-            margin-top: 0.75rem;
-        }
+            .split h2 {
+                font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+                margin-bottom: 1rem;
+            }
+            .split p {
+                color: var(--text-p);
+                margin-top: 0.75rem;
+            }
 
-        /* Image container */
-        .split-image-wrap {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-        }
-        .split-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .split-image-wrap:hover .split-image {
-            transform: scale(1.03);
-        }
+            /* Image container */
+            .split-image-wrap {
+                position: relative;
+                border-radius: 8px;
+                overflow: hidden;
+                aspect-ratio: 4/3;
+            }
+            .split-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+                transition: transform 0.5s ease;
+            }
+            .split-image-wrap:hover .split-image {
+                transform: scale(1.03);
+            }
 
-        /* Year overlay tag */
-        .year-tag {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            background: rgba(10,10,10,0.72);
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.12);
-            backdrop-filter: blur(6px);
-        }
+            /* Year overlay tag */
+            .year-tag {
+                position: absolute;
+                bottom: 1rem;
+                right: 1rem;
+                background: rgba(10, 10, 10, 0.72);
+                color: #fff;
+                font-family: "Space Grotesk", sans-serif;
+                font-size: 0.75rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                padding: 0.2rem 0.6rem;
+                border-radius: 4px;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                backdrop-filter: blur(6px);
+            }
 
-        .stat {
-            margin-top: 1.25rem;
-            font-size: 0.82rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .stat::before {
-            content: '';
-            display: inline-block;
-            width: 1.5rem;
-            height: 1px;
-            background: var(--accent);
-            flex-shrink: 0;
-        }
+            .stat {
+                margin-top: 1.25rem;
+                font-size: 0.82rem;
+                font-weight: 500;
+                letter-spacing: 0.02em;
+                color: var(--text-muted);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .stat::before {
+                content: "";
+                display: inline-block;
+                width: 1.5rem;
+                height: 1px;
+                background: var(--accent);
+                flex-shrink: 0;
+            }
 
-        /* ── Scroll fade-in ───────────────────────────────── */
-        @keyframes fade-up {
-            from { opacity: 0; transform: translateY(1.5rem); }
-            to   { opacity: 1; transform: none; }
-        }
-        .reveal { opacity: 0; }
-        .reveal.visible { animation: fade-up 0.65s ease-out forwards; }
+            /* ── Scroll fade-in ───────────────────────────────── */
+            @keyframes fade-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(1.5rem);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+            .reveal {
+                opacity: 0;
+            }
+            .reveal.visible {
+                animation: fade-up 0.65s ease-out forwards;
+            }
 
-        /* ── Responsive tweaks ────────────────────────────── */
-        @media (max-width: 640px) {
-            .hero { padding: 4rem 1.25rem; }
-            .one-col, .split { padding: 3.5rem 1.25rem; }
-        }
-    </style>
-</head>
+            /* ── Responsive tweaks ────────────────────────────── */
+            @media (max-width: 640px) {
+                .hero {
+                    padding: 4rem 1.25rem;
+                }
+                .one-col,
+                .split {
+                    padding: 3.5rem 1.25rem;
+                }
+            }
+        </style>
+    </head>
 
-<body>
-
-    <!-- Theme toggle -->
-    <button class="toggle" id="themeToggle" aria-label="Toggle light/dark mode">
-        <svg id="toggleIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-        </svg>
-        <span id="toggleLabel">Light</span>
-    </button>
-
-    <!--
-        1. HERO
-    -->
-    <header class="hero">
-        <div class="hero-image" style="background-image: url('assets/img/hero-gaming.jpg');" aria-hidden="true"></div>
-        <div class="hero-overlay" aria-hidden="true"></div>
-        <div class="hero-content">
-            <span class="badge">🎮 &nbsp;2015 – 2025</span>
-            <h1>Games That Defined<br>a Generation</h1>
-            <h2>Ten titles that reshaped how we play, feel, and connect — the most influential video games of the past decade.</h2>
-            <div class="hero-buttons">
-                <a href="#games" class="hero-button hero-button-primary">Explore the List</a>
-                <a href="#about" class="hero-button hero-button-secondary">Why These Games?</a>
-            </div>
-        </div>
-    </header>
-
-
-    <main>
+    <body>
+        <!-- Theme toggle -->
+        <button
+            class="toggle"
+            id="themeToggle"
+            aria-label="Toggle light/dark mode"
+        >
+            <svg
+                id="toggleIcon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <circle cx="12" cy="12" r="4" />
+                <path
+                    d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                />
+            </svg>
+            <span id="toggleLabel">Light</span>
+        </button>
 
         <!--
+        1. HERO
+    -->
+        <header class="hero">
+            <div
+                class="hero-image"
+                style="
+                    background-image: url(&quot;assets/img/hero-gaming.jpg&quot;);
+                "
+                aria-hidden="true"
+            ></div>
+            <div class="hero-overlay" aria-hidden="true"></div>
+            <div class="hero-content">
+                <span class="badge">🎮 &nbsp;2015 – 2025</span>
+                <h1>Games That Defined<br />a Generation</h1>
+                <h2>
+                    Ten titles that reshaped how we play, feel, and connect —
+                    the most influential video games of the past decade.
+                </h2>
+                <div class="hero-buttons">
+                    <a href="#games" class="hero-button hero-button-primary"
+                        >Explore the List</a
+                    >
+                    <a href="#about" class="hero-button hero-button-secondary"
+                        >Why These Games?</a
+                    >
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!--
             2. SECTIONS
         -->
 
-        <!-- One-column intro -->
-        <section id="about" class="one-col reveal">
-            <div class="one-col-content">
-                <p>Video games don't just entertain — they build worlds, spark movements, and permanently alter culture. The past decade delivered a wave of titles that broke sales records, sparked global conversation, and pushed the medium forward as an art form. Here are the games that mattered most.</p>
-            </div>
-        </section>
-
-        <!-- Split 1 — The Witcher 3 -->
-        <section id="games" class="split reveal" style="background: var(--bg-alt);">
-            <div class="split-grid">
-
-                <div class="split-text">
-                    <span class="badge">RPG &nbsp;·&nbsp; 2015</span>
-                    <hr class="rule">
-                    <h2 style="color: var(--text-h);">The Witcher 3:<br>Wild Hunt</h2>
-                    <p>CD Projekt Red's masterpiece set the gold standard for open-world RPGs. Its hand-crafted quests, morally complex choices, and sprawling world of Velen redefined what players expected from a story-driven game — with over 100 hours of content and two award-winning expansions.</p>
-                    <p class="stat">200+ Game of the Year Awards &nbsp;·&nbsp; 50M+ copies sold</p>
+            <!-- One-column intro -->
+            <section id="about" class="one-col reveal">
+                <div class="one-col-content">
+                    <p>
+                        Video games don't just entertain — they build worlds,
+                        spark movements, and permanently alter culture. The past
+                        decade delivered a wave of titles that broke sales
+                        records, sparked global conversation, and pushed the
+                        medium forward as an art form. Here are the games that
+                        mattered most.
+                    </p>
                 </div>
+            </section>
 
-                <div class="split-media">
-                    <div class="split-image-wrap">
-                        <img class="split-image" src="assets/img/witcher3.jpg" alt="Dark moody forest representing The Witcher 3" width="1200" height="900" loading="lazy" decoding="async">
-                        <span class="year-tag">2015</span>
+            <!-- Split 1 — The Witcher 3 -->
+            <section
+                id="games"
+                class="split reveal"
+                style="background: var(--bg-alt)"
+            >
+                <div class="split-grid">
+                    <div class="split-text">
+                        <span class="badge">RPG &nbsp;·&nbsp; 2015</span>
+                        <hr class="rule" />
+                        <h2 style="color: var(--text-h)">
+                            The Witcher 3:<br />Wild Hunt
+                        </h2>
+                        <p>
+                            CD Projekt Red's masterpiece set the gold standard
+                            for open-world RPGs. Its hand-crafted quests,
+                            morally complex choices, and sprawling world of
+                            Velen redefined what players expected from a
+                            story-driven game — with over 100 hours of content
+                            and two award-winning expansions.
+                        </p>
+                        <p class="stat">
+                            200+ Game of the Year Awards &nbsp;·&nbsp; 50M+
+                            copies sold
+                        </p>
+                    </div>
+
+                    <div class="split-media">
+                        <div class="split-image-wrap">
+                            <img
+                                class="split-image"
+                                src="assets/img/witcher3.jpg"
+                                alt="Dark moody forest representing The Witcher 3"
+                                width="1200"
+                                height="900"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <span class="year-tag">2015</span>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
+            <!-- Split 2 — Breath of the Wild -->
+            <section
+                class="split split-reverse reveal"
+                style="background: var(--bg-alt2)"
+            >
+                <div class="split-grid">
+                    <div class="split-text">
+                        <span
+                            class="badge"
+                            style="
+                                border-color: rgba(52, 211, 153, 0.3);
+                                background: rgba(52, 211, 153, 0.07);
+                                color: var(--accent2);
+                            "
+                            >Action-Adventure &nbsp;·&nbsp; 2017</span
+                        >
+                        <hr class="rule" style="background: var(--accent2)" />
+                        <h2 style="color: var(--text-h)">
+                            Zelda: Breath<br />of the Wild
+                        </h2>
+                        <p>
+                            Nintendo shattered every open-world convention when
+                            Breath of the Wild launched alongside the Switch in
+                            2017. Climb any surface, experiment with physics,
+                            solve puzzles in dozens of ways — its emergent
+                            design philosophy influenced every open-world game
+                            that followed.
+                        </p>
+                        <p class="stat" style="--accent: var(--accent2)">
+                            Game of the Year 2017 &nbsp;·&nbsp; 32M+ copies sold
+                        </p>
+                    </div>
 
-        <!-- Split 2 — Breath of the Wild -->
-        <section class="split split-reverse reveal" style="background: var(--bg-alt2);">
-            <div class="split-grid">
-
-                <div class="split-text">
-                    <span class="badge" style="border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.07); color: var(--accent2);">Action-Adventure &nbsp;·&nbsp; 2017</span>
-                    <hr class="rule" style="background: var(--accent2);">
-                    <h2 style="color: var(--text-h);">Zelda: Breath<br>of the Wild</h2>
-                    <p>Nintendo shattered every open-world convention when Breath of the Wild launched alongside the Switch in 2017. Climb any surface, experiment with physics, solve puzzles in dozens of ways — its emergent design philosophy influenced every open-world game that followed.</p>
-                    <p class="stat" style="--accent: var(--accent2);">Game of the Year 2017 &nbsp;·&nbsp; 32M+ copies sold</p>
-                </div>
-
-                <div class="split-media">
-                    <div class="split-image-wrap">
-                        <img class="split-image" src="assets/img/botw.jpg" alt="Lush green open landscape representing Breath of the Wild" width="1200" height="900" loading="lazy" decoding="async">
-                        <span class="year-tag">2017</span>
+                    <div class="split-media">
+                        <div class="split-image-wrap">
+                            <img
+                                class="split-image"
+                                src="assets/img/botw.jpg"
+                                alt="Lush green open landscape representing Breath of the Wild"
+                                width="1200"
+                                height="900"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <span class="year-tag">2017</span>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
+            <!-- Split 3 — Fortnite -->
+            <section class="split reveal" style="background: var(--bg-alt)">
+                <div class="split-grid">
+                    <div class="split-text">
+                        <span class="badge"
+                            >Battle Royale &nbsp;·&nbsp; 2017</span
+                        >
+                        <hr class="rule" />
+                        <h2 style="color: var(--text-h)">Fortnite</h2>
+                        <p>
+                            Epic Games didn't invent the battle-royale genre,
+                            but Fortnite became a cultural juggernaut that
+                            transcended gaming entirely. Free-to-play, rapid
+                            season updates, and in-game concerts attracted 350
+                            million+ players — the first game to host live
+                            virtual events at the scale of real-world concerts.
+                        </p>
+                        <p class="stat">
+                            350M+ registered players &nbsp;·&nbsp; $9B+ revenue
+                            in peak years
+                        </p>
+                    </div>
 
-        <!-- Split 3 — Fortnite -->
-        <section class="split reveal" style="background: var(--bg-alt);">
-            <div class="split-grid">
-
-                <div class="split-text">
-                    <span class="badge">Battle Royale &nbsp;·&nbsp; 2017</span>
-                    <hr class="rule">
-                    <h2 style="color: var(--text-h);">Fortnite</h2>
-                    <p>Epic Games didn't invent the battle-royale genre, but Fortnite became a cultural juggernaut that transcended gaming entirely. Free-to-play, rapid season updates, and in-game concerts attracted 350 million+ players — the first game to host live virtual events at the scale of real-world concerts.</p>
-                    <p class="stat">350M+ registered players &nbsp;·&nbsp; $9B+ revenue in peak years</p>
-                </div>
-
-                <div class="split-media">
-                    <div class="split-image-wrap">
-                        <img class="split-image" src="assets/img/fortnite.jpg" alt="Neon futuristic atmosphere representing Fortnite" width="1200" height="900" loading="lazy" decoding="async">
-                        <span class="year-tag">2017</span>
+                    <div class="split-media">
+                        <div class="split-image-wrap">
+                            <img
+                                class="split-image"
+                                src="assets/img/fortnite.jpg"
+                                alt="Neon futuristic atmosphere representing Fortnite"
+                                width="1200"
+                                height="900"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <span class="year-tag">2017</span>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
+            <!-- Split 4 — Red Dead Redemption 2 -->
+            <section
+                class="split split-reverse reveal"
+                style="background: var(--bg-alt2)"
+            >
+                <div class="split-grid">
+                    <div class="split-text">
+                        <span
+                            class="badge"
+                            style="
+                                border-color: rgba(245, 158, 11, 0.3);
+                                background: rgba(245, 158, 11, 0.07);
+                                color: var(--accent3);
+                            "
+                            >Action-Adventure &nbsp;·&nbsp; 2018</span
+                        >
+                        <hr class="rule" style="background: var(--accent3)" />
+                        <h2 style="color: var(--text-h)">
+                            Red Dead<br />Redemption 2
+                        </h2>
+                        <p>
+                            Rockstar Games delivered the most cinematic
+                            open-world narrative ever made. Arthur Morgan's
+                            story of loyalty, survival, and redemption resonated
+                            deeply. Its unprecedented attention to detail —
+                            animals with realistic behaviour, NPCs with dynamic
+                            routines — set a bar the industry is still chasing.
+                        </p>
+                        <p class="stat" style="--accent: var(--accent3)">
+                            175+ Game of the Year Awards &nbsp;·&nbsp; 61M+
+                            copies sold
+                        </p>
+                    </div>
 
-        <!-- Split 4 — Red Dead Redemption 2 -->
-        <section class="split split-reverse reveal" style="background: var(--bg-alt2);">
-            <div class="split-grid">
-
-                <div class="split-text">
-                    <span class="badge" style="border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.07); color: var(--accent3);">Action-Adventure &nbsp;·&nbsp; 2018</span>
-                    <hr class="rule" style="background: var(--accent3);">
-                    <h2 style="color: var(--text-h);">Red Dead<br>Redemption 2</h2>
-                    <p>Rockstar Games delivered the most cinematic open-world narrative ever made. Arthur Morgan's story of loyalty, survival, and redemption resonated deeply. Its unprecedented attention to detail — animals with realistic behaviour, NPCs with dynamic routines — set a bar the industry is still chasing.</p>
-                    <p class="stat" style="--accent: var(--accent3);">175+ Game of the Year Awards &nbsp;·&nbsp; 61M+ copies sold</p>
-                </div>
-
-                <div class="split-media">
-                    <div class="split-image-wrap">
-                        <img class="split-image" src="assets/img/rdr2.jpg" alt="Vast wilderness sunset representing Red Dead Redemption 2" width="1200" height="900" loading="lazy" decoding="async">
-                        <span class="year-tag">2018</span>
+                    <div class="split-media">
+                        <div class="split-image-wrap">
+                            <img
+                                class="split-image"
+                                src="assets/img/rdr2.jpg"
+                                alt="Vast wilderness sunset representing Red Dead Redemption 2"
+                                width="1200"
+                                height="900"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <span class="year-tag">2018</span>
+                        </div>
                     </div>
                 </div>
+            </section>
+        </main>
 
-            </div>
-        </section>
+        <script>
+            /* ── Theme toggle ──────────────────────────────────── */
+            const html = document.documentElement;
+            const btn = document.getElementById("themeToggle");
+            const label = document.getElementById("toggleLabel");
+            const icon = document.getElementById("toggleIcon");
 
-    </main>
+            const moonPath =
+                '<path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>';
+            const sunPath =
+                '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
 
-    <script>
-        /* ── Theme toggle ──────────────────────────────────── */
-        const html   = document.documentElement;
-        const btn    = document.getElementById('themeToggle');
-        const label  = document.getElementById('toggleLabel');
-        const icon   = document.getElementById('toggleIcon');
-
-        const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>';
-        const sunPath  = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
-
-        function applyTheme(t) {
-            html.setAttribute('data-theme', t);
-            if (t === 'dark') {
-                label.textContent = 'Light';
-                icon.innerHTML = sunPath;
-            } else {
-                label.textContent = 'Dark';
-                icon.innerHTML = moonPath;
-            }
-        }
-
-        applyTheme(localStorage.getItem('theme') || 'dark');
-
-        btn.addEventListener('click', () => {
-            const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            applyTheme(next);
-            localStorage.setItem('theme', next);
-        });
-
-        /* ── Scroll reveal ─────────────────────────────────── */
-        const obs = new IntersectionObserver(
-            entries => entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    obs.unobserve(e.target);
+            function applyTheme(t) {
+                html.setAttribute("data-theme", t);
+                if (t === "dark") {
+                    label.textContent = "Light";
+                    icon.innerHTML = sunPath;
+                } else {
+                    label.textContent = "Dark";
+                    icon.innerHTML = moonPath;
                 }
-            }),
-            { threshold: 0.08 }
-        );
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    </script>
+            }
 
-</body>
+            applyTheme(localStorage.getItem("theme") || "dark");
+
+            btn.addEventListener("click", () => {
+                const next =
+                    html.getAttribute("data-theme") === "dark"
+                        ? "light"
+                        : "dark";
+                applyTheme(next);
+                localStorage.setItem("theme", next);
+            });
+
+            /* ── Scroll reveal ─────────────────────────────────── */
+            const obs = new IntersectionObserver(
+                (entries) =>
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add("visible");
+                            obs.unobserve(e.target);
+                        }
+                    }),
+                { threshold: 0.08 },
+            );
+            document
+                .querySelectorAll(".reveal")
+                .forEach((el) => obs.observe(el));
+        </script>
+    </body>
 </html>
